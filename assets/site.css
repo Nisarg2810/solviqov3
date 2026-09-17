@@ -42,13 +42,52 @@
   --ease-out:cubic-bezier(.16,1,.3,1);
   --spring:cubic-bezier(.34,1.56,.64,1);
   --maxw:1240px;
+  --header-fade:rgba(5,7,12,.88); --header-fade2:rgba(5,7,12,.5);
+  --overlay-bg:rgba(5,7,12,.97); --glass:rgba(226,232,240,.05);
+  --grain-op:.30; --grain-blend:overlay;
 }
+
+/* ============ light theme ============ */
+html[data-theme="light"]{
+  --ink-950:#EEF2F7; --ink-900:#FFFFFF; --ink-850:#FFFFFF; --ink-800:#FFFFFF;
+  --ink-700:#E6EBF2; --ink-600:#D8E0EA; --ink-500:#C7D1DE;
+  --t1:#0B0F18; --t2:#49566B; --t3:#7C8899;
+  --line:rgba(11,15,24,.10); --line-2:rgba(11,15,24,.18); --edge-top:rgba(255,255,255,.95);
+  --e1:0 1px 2px rgba(19,28,45,.10), inset 0 1px 0 var(--edge-top);
+  --e2:0 4px 14px -3px rgba(19,28,45,.14), 0 1px 3px rgba(19,28,45,.08), inset 0 1px 0 var(--edge-top);
+  --e3:0 14px 36px -10px rgba(19,28,45,.18), 0 3px 8px rgba(19,28,45,.08), inset 0 1px 0 var(--edge-top);
+  --e4:0 32px 72px -20px rgba(19,28,45,.24), 0 6px 16px rgba(19,28,45,.10), inset 0 1px 0 var(--edge-top);
+  --grad-sheen:linear-gradient(145deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.35) 38%, rgba(255,255,255,0) 62%);
+  --grad-panel:linear-gradient(168deg,#FFFFFF 0%,#F6F9FC 100%);
+  --grad-text:linear-gradient(120deg,#0B0F18 0%,#31415A 48%,#5B6779 100%);
+  --amber-400:#B8660A; --amber-300:#8F4E06;
+  --signal-400:#3B63F0; --signal-300:#2E4FD1;
+  --header-fade:rgba(238,242,247,.92); --header-fade2:rgba(238,242,247,.55);
+  --overlay-bg:rgba(238,242,247,.98); --glass:rgba(11,15,24,.04);
+  --grain-op:.10; --grain-blend:multiply;
+}
+html[data-theme="light"] .mesh{opacity:.55}
+html[data-theme="light"] .btn-primary{color:#231200}
+html[data-theme="light"] .badge.amber{background:rgba(232,137,12,.14);border-color:rgba(184,102,10,.4)}
+html[data-theme="light"] .badge.signal{background:rgba(76,125,255,.12);border-color:rgba(46,79,209,.4)}
+html[data-theme="light"] .cover,html[data-theme="light"] .cover-wide{background:#0D111B}
+
+/* theme toggle */
+.theme-btn{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  background:var(--glass);border:1px solid var(--line-2);box-shadow:var(--e1);color:var(--t1);
+  transition:border-color .25s var(--ease),transform .25s var(--spring)}
+.theme-btn:hover{border-color:var(--steel-400);transform:scale(1.05)}
+.theme-btn svg{width:18px;height:18px}
+.theme-btn .moon{display:none}
+html[data-theme="light"] .theme-btn .moon{display:block}
+html[data-theme="light"] .theme-btn .sun{display:none}
 
 *,*::before,*::after{box-sizing:border-box}
 html,body{overflow-x:hidden;overflow-x:clip}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--f-body);color:var(--t1);font-size:16px;line-height:1.65;
-  background:var(--ink-950);-webkit-font-smoothing:antialiased}
+  background:var(--ink-950);-webkit-font-smoothing:antialiased;
+  transition:background .45s var(--ease),color .45s var(--ease)}
 ::selection{background:var(--amber-500);color:#1A0F02}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -69,7 +108,7 @@ button{font-family:inherit;color:inherit}
     radial-gradient(ellipse 90% 60% at 50% 100%, rgba(37,46,64,.45), transparent 70%);
   animation:meshDrift 52s var(--ease) -14s infinite alternate}
 @keyframes meshDrift{from{transform:translate3d(-1.5%,0,0) scale(1)}to{transform:translate3d(1.5%,1%,0) scale(1.07)}}
-.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.30;mix-blend-mode:overlay;
+.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:var(--grain-op,.30);mix-blend-mode:var(--grain-blend,overlay);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grainShift 8s steps(6) infinite}
 @keyframes grainShift{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}
@@ -80,7 +119,7 @@ button{font-family:inherit;color:inherit}
 
 /* ============ header ============ */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:80;
-  background:linear-gradient(rgba(5,7,12,.88),rgba(5,7,12,.5) 60%,transparent);
+  background:linear-gradient(var(--header-fade),var(--header-fade2) 60%,transparent);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .nav-row{display:flex;align-items:center;justify-content:space-between;height:86px;gap:20px;
   position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 40px}
@@ -90,14 +129,14 @@ button{font-family:inherit;color:inherit}
 .brand span{font-family:var(--f-display);font-weight:700;font-size:17px}
 .nav-right{display:flex;align-items:center;gap:12px}
 .nav-toggle{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  background:rgba(226,232,240,.05);border:1px solid var(--line-2);width:46px;height:46px;border-radius:50%;
+  background:var(--glass);border:1px solid var(--line-2);width:46px;height:46px;border-radius:50%;
   cursor:pointer;box-shadow:var(--e1);transition:border-color .25s var(--ease),transform .25s var(--spring)}
 .nav-toggle:hover{border-color:var(--steel-400);transform:scale(1.05)}
 .nav-toggle .ln{width:17px;height:1.5px;background:var(--t1);display:block;transition:transform .3s var(--ease)}
 .nav-open .nav-toggle .ln:first-child{transform:translateY(3.25px) rotate(45deg)}
 .nav-open .nav-toggle .ln:last-child{transform:translateY(-3.25px) rotate(-45deg)}
 
-.nav-overlay{position:fixed;inset:0;z-index:70;background:rgba(5,7,12,.97);
+.nav-overlay{position:fixed;inset:0;z-index:70;background:var(--overlay-bg);
   display:flex;flex-direction:column;justify-content:center;overflow-y:auto;padding:110px 0 44px;
   opacity:0;visibility:hidden;transition:opacity .4s var(--ease)}
 .nav-open .nav-overlay{opacity:1;visibility:visible}
@@ -128,7 +167,7 @@ body.nav-open{overflow:hidden}
 .btn-primary{background:var(--grad-amber);color:#1A0F02;
   box-shadow:0 8px 22px -6px rgba(232,137,12,.5), inset 0 1px 0 rgba(255,255,255,.34)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(232,137,12,.66), inset 0 1px 0 rgba(255,255,255,.4)}
-.btn-ghost{background:rgba(226,232,240,.05);border-color:var(--line-2);color:var(--t1);
+.btn-ghost{background:var(--glass);border-color:var(--line-2);color:var(--t1);
   backdrop-filter:blur(8px);box-shadow:var(--e1)}
 .btn-ghost:hover{transform:translateY(-2px);border-color:var(--steel-400);box-shadow:var(--e2)}
 .btn-lg{padding:16px 32px;font-size:16px}
@@ -189,7 +228,7 @@ body.nav-open{overflow:hidden}
 /* ============ badges ============ */
 .badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:10.5px;
   letter-spacing:.09em;text-transform:uppercase;padding:6px 13px;border-radius:var(--r-full);
-  border:1px solid var(--line-2);background:rgba(226,232,240,.05);box-shadow:var(--e1);color:var(--t2);width:max-content}
+  border:1px solid var(--line-2);background:var(--glass);box-shadow:var(--e1);color:var(--t2);width:max-content}
 .badge.amber{border-color:rgba(232,137,12,.35);background:rgba(232,137,12,.12);color:var(--amber-300)}
 .badge.signal{border-color:rgba(76,125,255,.35);background:rgba(76,125,255,.12);color:var(--signal-300)}
 .badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
@@ -363,3 +402,14 @@ body.detail-mode #postDetail,body.detail-mode #caseDetail{padding-top:76px}
   .step::before{background:var(--grad-amber);border-color:var(--amber-400)}
 }
 body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+
+/* the mark inverts for light, or its brightest chevron disappears */
+html[data-theme="light"] .brand svg g:nth-of-type(1) polyline,
+html[data-theme="light"] .hero-mark g:nth-of-type(1) polyline{stroke:#A7B2C2}
+html[data-theme="light"] .brand svg g:nth-of-type(2) polyline,
+html[data-theme="light"] .hero-mark g:nth-of-type(2) polyline{stroke:#5B6779}
+html[data-theme="light"] .brand svg g:nth-of-type(3) polyline,
+html[data-theme="light"] .hero-mark g:nth-of-type(3) polyline{stroke:#0B0F18}
+html[data-theme="light"] .hero-mark{filter:drop-shadow(0 18px 34px rgba(19,28,45,.22))}
+html[data-theme="light"] .brand svg{filter:none}
+html[data-theme="light"] .hero-art .halo{background:radial-gradient(circle,rgba(76,125,255,.14),transparent 62%)}

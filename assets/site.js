@@ -17,6 +17,23 @@
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
   }
 
+  /* ---------------- theme ---------------- */
+  var themeBtn = doc.getElementById('themeBtn');
+  if (themeBtn) {
+    function applyTheme(mode) {
+      doc.documentElement.setAttribute('data-theme', mode);
+      themeBtn.setAttribute('aria-label', mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+      themeBtn.setAttribute('aria-pressed', mode === 'light' ? 'true' : 'false');
+      try { localStorage.setItem('solviqo-theme', mode); } catch (e) {}
+      paintCovers();
+    }
+    themeBtn.addEventListener('click', function () {
+      applyTheme(doc.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    });
+    var cur = doc.documentElement.getAttribute('data-theme') || 'dark';
+    themeBtn.setAttribute('aria-label', cur === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+  }
+
   /* ---------------- reveal + stagger ---------------- */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
