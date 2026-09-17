@@ -413,3 +413,19 @@ html[data-theme="light"] .hero-mark g:nth-of-type(3) polyline{stroke:#0B0F18}
 html[data-theme="light"] .hero-mark{filter:drop-shadow(0 18px 34px rgba(19,28,45,.22))}
 html[data-theme="light"] .brand svg{filter:none}
 html[data-theme="light"] .hero-art .halo{background:radial-gradient(circle,rgba(76,125,255,.14),transparent 62%)}
+
+/* ============ custom cursor, fine pointers only ============ */
+@media (pointer:fine){
+  html.cur-on,html.cur-on *{cursor:none!important}
+  .cur{position:fixed;top:0;left:0;z-index:250;pointer-events:none;will-change:transform}
+  .cur-dot{position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;
+    background:var(--amber-500);box-shadow:0 0 10px rgba(232,137,12,.9)}
+  .cur-ring{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;
+    border:1px solid var(--line-2);background:var(--glass);backdrop-filter:blur(2px);
+    transition:width .25s var(--spring),height .25s var(--spring),margin .25s var(--spring),
+               border-color .25s var(--ease),background .25s var(--ease)}
+  .cur.hot .cur-ring{width:56px;height:56px;margin:-28px 0 0 -28px;
+    border-color:var(--amber-500);background:rgba(232,137,12,.10)}
+  .cur.down .cur-ring{width:26px;height:26px;margin:-13px 0 0 -13px}
+}
+@media (pointer:coarse){.cur{display:none}}
