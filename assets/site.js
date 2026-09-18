@@ -297,6 +297,15 @@
         '<span class="card-link">Read the piece ' + ARROW + '</span>' +
       '</span></a>';
   }
+  function demoHtml(c) {
+    if (!c.demo) return '';
+    return '<div class="demo-wrap"><div class="flow-head"><h3>Watch it work</h3><span class="flow-legend">A one minute walkthrough of the real flow, with sample data</span></div>' +
+      '<iframe class="demo-frame" src="' + esc(c.demo) + '?v=1" title="Walkthrough of ' + esc(c.title) + '" loading="lazy"></iframe></div>';
+  }
+  window.addEventListener('message', function (e) {
+    if (!e.data || !e.data.demoH) return;
+    document.querySelectorAll('.demo-frame').forEach(function (f) { if (f.contentWindow === e.source) f.style.height = e.data.demoH + 'px'; });
+  });
   function flowHtml(c) {
     if (!c.flow || !c.flow.length) return '';
     var nodes = c.flow.map(function (f, i) {
@@ -374,7 +383,7 @@
   function initCases() {
     var list = doc.getElementById('caseList'), detail = doc.getElementById('caseDetail');
     if (!list && !detail) return;
-    fetch('data/case-studies.json?v=3').then(function (r) { return r.json(); }).then(function (cases) {
+    fetch('data/case-studies.json?v=4').then(function (r) { return r.json(); }).then(function (cases) {
       var slug = slugParam();
       if (slug) {
         hideListChrome();
@@ -392,7 +401,7 @@
           '<div class="stats" style="margin:0 0 46px">' + c.stats.map(function (s) {
             return '<div class="stat"><div class="v">' + esc(s.v) + '</div><div class="l">' + esc(s.l) + '</div></div>';
           }).join('') + '</div>' +
-          flowHtml(c) +
+          demoHtml(c) + flowHtml(c) +
           '<div class="post-body"><h3>The problem</h3><p>' + esc(c.challenge) + '</p>' +
           '<h3>What we built</h3><p>' + esc(c.approach) + '</p>' +
           '<h3>Where it landed</h3><p>' + esc(c.outcome) + '</p></div>' +
@@ -415,7 +424,7 @@
       p.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
       pt.innerHTML = p.slice(0, 2).map(postCard).join(''); pt.classList.add('in'); paintCovers(pt); armTilt(pt);
     }).catch(function () {});
-    if (ct) fetch('data/case-studies.json?v=3').then(function (r) { return r.json(); }).then(function (c) {
+    if (ct) fetch('data/case-studies.json?v=4').then(function (r) { return r.json(); }).then(function (c) {
       ct.innerHTML = c.slice(0, 2).map(caseCard).join(''); ct.classList.add('in'); paintCovers(ct); armTilt(ct);
     }).catch(function () {});
   }

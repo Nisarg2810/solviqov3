@@ -81,7 +81,8 @@
       "The system counts down every deadline",
       "The right team is notified the moment a case opens",
       "Every fine traced back and recovered"
-    ]
+    ],
+    "demo": "demos/gvm.html"
   },
   {
     "slug": "facility-accommodation-management",
@@ -161,7 +162,8 @@
       "3,100+ staff records synced from HR automatically",
       "A daily digest flags every expiry in advance",
       "Live occupancy across every site on one screen"
-    ]
+    ],
+    "demo": "demos/fms.html"
   },
   {
     "slug": "maintenance-observation-management",
@@ -240,7 +242,8 @@
       "One guided flow from raise to close",
       "Spend approved at the right level, automatically",
       "Overdue and pending work visible live"
-    ]
+    ],
+    "demo": "demos/moms.html"
   },
   {
     "slug": "fleet-preinspection-visibility",
@@ -319,6 +322,7 @@
       "One record follows every machine",
       "Inspection and approval in a single flow",
       "Live status of every asset on every site"
-    ]
+    ],
+    "demo": "demos/fleet.html"
   }
 ]

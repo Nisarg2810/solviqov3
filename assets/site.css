@@ -480,3 +480,5 @@ html[data-theme="light"] .hero-art .halo{background:radial-gradient(circle,rgba(
     background:linear-gradient(180deg,var(--line-2),var(--amber-500),var(--line-2));background-size:100% 200%}
   .flow-node:last-child::after{display:none}
   .ba{grid-template-columns:1fr}}
+.demo-wrap{margin:0 0 46px}
+.demo-frame{display:block;width:100%;aspect-ratio:16/10;border:0;background:transparent}
