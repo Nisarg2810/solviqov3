@@ -429,3 +429,54 @@ html[data-theme="light"] .hero-art .halo{background:radial-gradient(circle,rgba(
   .cur.down .cur-ring{width:26px;height:26px;margin:-13px 0 0 -13px}
 }
 @media (pointer:coarse){.cur{display:none}}
+
+/* ============ case study diagrams ============ */
+.flow-wrap{margin:0 0 46px;padding:34px}
+.flow-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+.flow-head h3{font-size:clamp(20px,2.4vw,26px)}
+.flow-legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11px;color:var(--t3);letter-spacing:.06em}
+.flow-legend span{display:flex;align-items:center;gap:7px}
+.flow-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 30px;position:relative;z-index:1}
+.flow-node{position:relative;background:var(--ink-800);border:1px solid var(--line-2);border-radius:var(--r-md);
+  padding:18px 18px 16px;box-shadow:var(--e2);display:flex;flex-direction:column;gap:8px;
+  animation:nodeIn .6s var(--ease-out) both;animation-delay:calc(var(--i) * 90ms)}
+@keyframes nodeIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.flow-node .n{font-family:var(--f-mono);font-size:11px;color:var(--t3);display:flex;justify-content:space-between;align-items:center}
+.flow-node .n b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:500;
+  background:var(--ink-700);color:var(--t1);box-shadow:var(--e1)}
+.flow-node h4{font-size:16px;letter-spacing:-.01em}
+.flow-node p{font-size:13px;color:var(--t2);line-height:1.5}
+.flow-node .who{margin-top:auto;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t2);padding:4px 9px;border:1px solid var(--line-2);border-radius:99px;width:max-content}
+.flow-node.sys{border-color:rgba(76,125,255,.45);box-shadow:var(--e2),0 0 24px -8px rgba(76,125,255,.5)}
+.flow-node.sys .n b{background:var(--grad-signal);color:#fff}
+.flow-node.sys .who{color:var(--signal-300);border-color:rgba(76,125,255,.4)}
+.flow-node.dec{border-color:rgba(232,137,12,.5);box-shadow:var(--e2),0 0 24px -8px rgba(232,137,12,.55)}
+.flow-node.dec .n b{background:var(--grad-amber);color:#231200}
+.flow-node .alt{font-size:12px;color:var(--amber-300);display:flex;gap:6px;align-items:flex-start;line-height:1.45}
+.flow-node .alt::before{content:"\21B3";flex:none}
+/* connectors */
+.flow-node::after{content:"";position:absolute;top:50%;right:-31px;width:30px;height:2px;
+  background:linear-gradient(90deg,var(--line-2),var(--amber-500),var(--line-2));background-size:200% 100%;
+  animation:flowRun 2.4s linear infinite}
+.flow-node:nth-child(4n)::after,.flow-node:last-child::after{display:none}
+@keyframes flowRun{from{background-position:100% 0}to{background-position:-100% 0}}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:0 0 46px}
+.ba .panel{padding:28px}
+.ba h4{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px;font-weight:500}
+.ba ul{display:flex;flex-direction:column;gap:12px}
+.ba li{display:flex;gap:12px;font-size:15px;color:var(--t2);line-height:1.5}
+.ba li::before{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;margin-top:1px}
+.ba .before h4{color:var(--bad-500)}
+.ba .before li::before{content:"\2715";background:rgba(248,113,113,.14);color:var(--bad-500)}
+.ba .after h4{color:var(--amber-400)}
+.ba .after li::before{content:"\2713";background:rgba(232,137,12,.16);color:var(--amber-400)}
+@media(max-width:940px){.flow{grid-template-columns:repeat(2,1fr)}
+  .flow-node:nth-child(4n)::after{display:block}.flow-node:nth-child(2n)::after{display:none}}
+@media(max-width:620px){
+  .flow{grid-template-columns:1fr;gap:26px}.flow-wrap{padding:22px}
+  .flow-node::after,.flow-node:nth-child(4n)::after,.flow-node:nth-child(2n)::after{display:block;top:auto;bottom:-25px;right:auto;left:30px;width:2px;height:24px;
+    background:linear-gradient(180deg,var(--line-2),var(--amber-500),var(--line-2));background-size:100% 200%}
+  .flow-node:last-child::after{display:none}
+  .ba{grid-template-columns:1fr}}

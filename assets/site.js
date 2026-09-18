@@ -297,6 +297,25 @@
         '<span class="card-link">Read the piece ' + ARROW + '</span>' +
       '</span></a>';
   }
+  function flowHtml(c) {
+    if (!c.flow || !c.flow.length) return '';
+    var nodes = c.flow.map(function (f, i) {
+      var cls = 'flow-node' + (f.sys ? ' sys' : '') + (f.d ? ' dec' : '');
+      return '<div class="' + cls + '" style="--i:' + i + '">' +
+        '<span class="n"><b>' + (i + 1) + '</b>' + (f.sys ? 'AUTOMATIC' : (f.d ? 'DECISION' : '')) + '</span>' +
+        '<h4>' + esc(f.s) + '</h4><p>' + esc(f.t) + '</p>' +
+        (f.alt ? '<span class="alt">' + esc(f.alt) + '</span>' : '') +
+        '<span class="who">' + esc(f.who) + '</span></div>';
+    }).join('');
+    var ba = (c.before && c.after) ? '<div class="ba">' +
+      '<div class="panel before"><h4>Before</h4><ul>' + c.before.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+      '<div class="panel after"><h4>After</h4><ul>' + c.after.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>' : '';
+    return '<div class="panel flow-wrap"><div class="flow-head"><h3>How the work moves now</h3>' +
+      '<div class="flow-legend"><span><i style="background:var(--ink-600)"></i>Team step</span>' +
+      '<span><i style="background:var(--signal-500)"></i>Automatic</span>' +
+      '<span><i style="background:var(--amber-500)"></i>Decision point</span></div></div>' +
+      '<div class="flow">' + nodes + '</div></div>' + ba;
+  }
   function caseCard(c) {
     return '<a class="card has-cover" data-tilt="6" href="case-studies.html?slug=' + encodeURIComponent(c.slug) + '">' +
       '<span class="cover"><canvas data-seed="' + esc(c.title) + '"' + (c.art !== undefined ? ' data-kind="' + esc(c.art) + '"' : '') + '></canvas></span>' +
@@ -355,7 +374,7 @@
   function initCases() {
     var list = doc.getElementById('caseList'), detail = doc.getElementById('caseDetail');
     if (!list && !detail) return;
-    fetch('data/case-studies.json?v=2').then(function (r) { return r.json(); }).then(function (cases) {
+    fetch('data/case-studies.json?v=3').then(function (r) { return r.json(); }).then(function (cases) {
       var slug = slugParam();
       if (slug) {
         hideListChrome();
@@ -373,6 +392,7 @@
           '<div class="stats" style="margin:0 0 46px">' + c.stats.map(function (s) {
             return '<div class="stat"><div class="v">' + esc(s.v) + '</div><div class="l">' + esc(s.l) + '</div></div>';
           }).join('') + '</div>' +
+          flowHtml(c) +
           '<div class="post-body"><h3>The problem</h3><p>' + esc(c.challenge) + '</p>' +
           '<h3>What we built</h3><p>' + esc(c.approach) + '</p>' +
           '<h3>Where it landed</h3><p>' + esc(c.outcome) + '</p></div>' +
@@ -395,7 +415,7 @@
       p.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
       pt.innerHTML = p.slice(0, 2).map(postCard).join(''); pt.classList.add('in'); paintCovers(pt); armTilt(pt);
     }).catch(function () {});
-    if (ct) fetch('data/case-studies.json?v=2').then(function (r) { return r.json(); }).then(function (c) {
+    if (ct) fetch('data/case-studies.json?v=3').then(function (r) { return r.json(); }).then(function (c) {
       ct.innerHTML = c.slice(0, 2).map(caseCard).join(''); ct.classList.add('in'); paintCovers(ct); armTilt(ct);
     }).catch(function () {});
   }
