@@ -1,4 +1,4 @@
-/* Solviqo experience layer: transitions, hero motion, split headlines, estimator,
+/* Solviqo experience layer: hero motion, split headlines, estimator,
    now building strip, case previews, magnetic buttons, command palette. */
 (function () {
   'use strict';
@@ -7,29 +7,6 @@
   var fine = matchMedia('(pointer:fine)').matches;
   var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-
-  /* ---------- 1. page transitions ---------- */
-  function internal(a) {
-    if (!a || a.target === '_blank' || a.hasAttribute('download')) return false;
-    var href = a.getAttribute('href') || '';
-    if (!href || href.charAt(0) === '#' || /^(mailto:|tel:|https?:)/i.test(href)) return false;
-    return /\.html(\?|#|$)/.test(href);
-  }
-  if (!reduce) {
-    doc.addEventListener('click', function (e) {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      var a = e.target.closest && e.target.closest('a');
-      if (!internal(a)) return;
-      var url = a.href;
-      if (url.split('#')[0] === location.href.split('#')[0]) return;
-      e.preventDefault();
-      try { sessionStorage.setItem('sv-pt', '1'); } catch (x) {}
-      html.classList.add('pt-leave');
-      setTimeout(function () { location.href = url; }, 430);
-    });
-    addEventListener('pageshow', function (e) { if (e.persisted) html.classList.remove('pt-leave', 'pt-enter'); });
-    if (html.classList.contains('pt-enter')) setTimeout(function () { html.classList.remove('pt-enter'); }, 800);
-  }
 
   /* ---------- 2. hero that follows the cursor ---------- */
   var art = doc.getElementById('heroArt');
@@ -133,22 +110,51 @@
     calc();
   }
 
-  /* ---------- 5. now building strip (edit NOW to change what it says) ---------- */
+  /* ---------- 5. now building card (edit NOW to change what it shows; art: road, pulse, sync) ---------- */
   var NOW = [
-    ['An approvals app for a logistics team', 'Week 2 of 4'],
-    ['A customer portal for a clinic group', 'Week 3 of 6'],
-    ['An ERP and CRM sync for a distributor', 'Week 1 of 3']
+    ['An approvals app for a logistics team', 'Logistics', 2, 4, 'road'],
+    ['A customer portal for a clinic group', 'Healthcare', 3, 6, 'pulse'],
+    ['An ERP and CRM sync for a distributor', 'Distribution', 1, 3, 'sync']
   ];
+  var ART = {
+    road: '<svg viewBox="0 0 200 110"><path class="nw-road" d="M-10 86 H210"/><path class="nw-dash" d="M-10 86 H210"/>' +
+      '<g class="nw-truck"><rect x="70" y="50" width="46" height="26" rx="4" class="nw-a"/><path d="M116 58h14l10 10v8h-24z" class="nw-s"/><circle cx="82" cy="80" r="6" class="nw-w"/><circle cx="128" cy="80" r="6" class="nw-w"/></g>' +
+      '<g class="nw-pin"><path d="M146 30c-7 0-12 5-12 11 0 9 12 20 12 20s12-11 12-20c0-6-5-11-12-11z" class="nw-a"/><circle cx="146" cy="41" r="4" class="nw-bg"/></g>' +
+      '<path class="nw-route" d="M24 44 Q 80 14 134 40"/></svg>',
+    pulse: '<svg viewBox="0 0 200 110"><rect x="18" y="22" width="40" height="40" rx="10" class="nw-s"/><path d="M38 32v20M28 42h20" class="nw-cross"/>' +
+      '<path class="nw-ecg" pathLength="100" d="M70 60 H100 L108 44 L116 76 L124 30 L132 60 H190"/>' +
+      '<rect x="70" y="84" width="60" height="6" rx="3" class="nw-s"/><rect x="138" y="84" width="40" height="6" rx="3" class="nw-a nw-blink"/></svg>',
+    sync: '<svg viewBox="0 0 200 110"><rect x="14" y="30" width="54" height="50" rx="12" class="nw-s"/><text x="41" y="60" class="nw-tx">ERP</text>' +
+      '<rect x="132" y="30" width="54" height="50" rx="12" class="nw-s"/><text x="159" y="60" class="nw-tx">CRM</text>' +
+      '<path d="M72 46 H128 M128 64 H72" class="nw-link"/>' +
+      '<circle r="4" class="nw-a"><animateMotion dur="1.6s" repeatCount="indefinite" path="M72 46 H128"/></circle>' +
+      '<circle r="4" class="nw-g"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" path="M128 64 H72"/></circle></svg>'
+  };
   var closed = false; try { closed = sessionStorage.getItem('sv-now-x') === '1'; } catch (x) {}
   if (!closed && NOW.length) {
-    var nb = doc.createElement('div'); nb.className = 'nowbar';
-    nb.innerHTML = '<span class="nb-dot"></span><span class="nb-k">Now building</span><span class="nb-t" id="nbT"></span><button type="button" aria-label="Hide">&times;</button>';
+    var nb = doc.createElement('aside'); nb.className = 'nowcard'; nb.setAttribute('aria-label', 'What we are building now');
+    nb.innerHTML = '<button type="button" class="nw-x" aria-label="Hide">&times;</button><div class="nw-art" id="nwArt"></div>' +
+      '<div class="nw-body"><span class="nw-k"><i></i>Now building</span><p class="nw-t" id="nwT"></p>' +
+      '<div class="nw-wk"><span id="nwW"></span><span class="nw-bar"><i id="nwB"></i></span></div></div>';
     doc.body.appendChild(nb);
-    var ni = 0, nt = doc.getElementById('nbT');
-    function showNow() { nt.classList.remove('in'); setTimeout(function () { nt.innerHTML = esc(NOW[ni][0]) + ' <em>' + esc(NOW[ni][1]) + '</em>'; nt.classList.add('in'); ni = (ni + 1) % NOW.length; }, 260); }
-    showNow(); var nTimer = setInterval(showNow, 4800);
-    setTimeout(function () { nb.classList.add('show'); }, html.classList.contains('is-loading') ? 1900 : 900);
-    nb.querySelector('button').onclick = function () { nb.classList.remove('show'); clearInterval(nTimer); try { sessionStorage.setItem('sv-now-x', '1'); } catch (x) {} };
+    var ni = 0;
+    function showNow() {
+      nb.classList.remove('in');
+      setTimeout(function () {
+        var it = NOW[ni];
+        doc.getElementById('nwArt').innerHTML = ART[it[4]] || '';
+        doc.getElementById('nwT').textContent = it[0];
+        doc.getElementById('nwW').textContent = it[1] + ' · Week ' + it[2] + ' of ' + it[3];
+        doc.getElementById('nwB').style.width = (it[2] / it[3] * 100) + '%';
+        nb.classList.add('in'); ni = (ni + 1) % NOW.length;
+      }, 300);
+    }
+    showNow(); var nTimer = setInterval(showNow, 5500);
+    var small = matchMedia('(max-width:620px)').matches;
+    function reveal() { nb.classList.add('show'); }
+    if (small) { var onS = function () { if (scrollY > innerHeight * .7) { reveal(); removeEventListener('scroll', onS); } }; addEventListener('scroll', onS, { passive: true }); }
+    else setTimeout(reveal, html.classList.contains('is-loading') ? 1900 : 900);
+    nb.querySelector('.nw-x').onclick = function () { nb.classList.remove('show'); clearInterval(nTimer); try { sessionStorage.setItem('sv-now-x', '1'); } catch (x) {} };
   }
 
   /* ---------- 6. case cards play their demo on hover ---------- */
@@ -248,5 +254,5 @@
     else if (e.key === 'Enter') { e.preventDefault(); go(sel); }
   });
   var kb = doc.getElementById('cmdkBtn');
-  if (kb) { kb.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>' + (isMac ? '&#8984;K' : 'Ctrl K') + '</span>'; kb.onclick = open; }
+  if (kb) { kb.innerHTML = '<svg class="ck-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path class="ck-s" d="M12 3v4M12 17v4M3 12h4M17 12h4"/><path class="ck-d" d="M12 8.5l1.2 2.3 2.3 1.2-2.3 1.2-1.2 2.3-1.2-2.3-2.3-1.2 2.3-1.2z" fill="currentColor"/></svg><span>Quick jump</span><kbd>' + (isMac ? '&#8984;K' : 'Ctrl K') + '</kbd>'; kb.onclick = open; }
 })();
