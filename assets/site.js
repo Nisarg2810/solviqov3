@@ -22,6 +22,7 @@
   if (themeBtn) {
     function applyTheme(mode) {
       doc.documentElement.setAttribute('data-theme', mode);
+      doc.querySelectorAll('iframe.demo-frame').forEach(function (f) { try { f.contentWindow.postMessage({ demoTheme: mode === 'light' ? 'dark' : 'light' }, '*'); } catch (e) {} });
       themeBtn.setAttribute('aria-label', mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
       themeBtn.setAttribute('aria-pressed', mode === 'light' ? 'true' : 'false');
       try { localStorage.setItem('solviqo-theme', mode); } catch (e) {}
@@ -297,11 +298,14 @@
         '<span class="card-link">Read the piece ' + ARROW + '</span>' +
       '</span></a>';
   }
+  function demoTheme() { return document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; }
+  window.solviqoDemoTheme = demoTheme;
   function demoHtml(c) {
     if (!c.demo) return '';
     return '<div class="demo-wrap"><div class="flow-head"><h3>Watch it work</h3><span class="flow-legend">A one minute walkthrough of the real flow, with sample data</span></div>' +
-      '<iframe class="demo-frame" src="' + esc(c.demo) + '?v=1" title="Walkthrough of ' + esc(c.title) + '" loading="lazy"></iframe></div>';
+      '<iframe class="demo-frame" src="' + esc(c.demo) + '?v=2&theme=' + demoTheme() + '" title="Walkthrough of ' + esc(c.title) + '" loading="lazy"></iframe></div>';
   }
+  document.querySelectorAll('iframe.demo-frame[data-src]').forEach(function (f) { f.src = f.getAttribute('data-src') + '&theme=' + demoTheme(); });
   window.addEventListener('message', function (e) {
     if (!e.data || !e.data.demoH) return;
     document.querySelectorAll('.demo-frame').forEach(function (f) { if (f.contentWindow === e.source) f.style.height = e.data.demoH + 'px'; });

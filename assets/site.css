@@ -482,3 +482,16 @@ html[data-theme="light"] .hero-art .halo{background:radial-gradient(circle,rgba(
   .ba{grid-template-columns:1fr}}
 .demo-wrap{margin:0 0 46px}
 .demo-frame{display:block;width:100%;aspect-ratio:16/10;border:0;background:transparent}
+
+/* ============ inline desktop nav ============ */
+.nav-inline{display:none}
+@media(min-width:1024px){
+  .nav-inline{display:flex;align-items:center;gap:2px;padding:5px;border-radius:99px;background:var(--glass);
+    border:1px solid var(--line-2);box-shadow:var(--e1);position:absolute;left:50%;transform:translateX(-50%)}
+  .nav-inline a{position:relative;font-size:14px;font-weight:500;color:var(--t2);padding:9px 16px;border-radius:99px;
+    transition:color .25s var(--ease),background .25s var(--ease)}
+  .nav-inline a:hover{color:var(--t1);background:var(--line)}
+  .nav-inline a.active{color:var(--t1);background:var(--ink-700);box-shadow:var(--e1)}
+  .nav-inline a.active::after{content:"";position:absolute;left:50%;bottom:3px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--amber-500)}
+  .nav-toggle{display:none}
+}

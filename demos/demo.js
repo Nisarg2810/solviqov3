@@ -2,6 +2,11 @@
 (function () {
   var embed = window.self !== window.top;
   if (embed) document.documentElement.classList.add('embed');
+  var qt = (location.search.match(/theme=(light|dark)/) || [])[1];
+  if (qt === 'light') document.documentElement.classList.add('light');
+  window.addEventListener('message', function (e) {
+    if (e.data && e.data.demoTheme) document.documentElement.classList.toggle('light', e.data.demoTheme === 'light');
+  });
   var S = [], T = 0, ACTS = [], stage, vp, K = 1, cur = { x: 600, y: 400 }, cfg;
   function $(s) { return stage.querySelector(s); }
   function ease(p) { return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
@@ -40,8 +45,8 @@
     var steps = c.labels.map(function (l, i) { return '<div class="st" data-s="' + (i + 1) + '"><b>' + (i + 1) + '</b>' + l[1] + '</div>'; }).join('');
     return '<div class="win"><div class="bar"><i></i><i></i><i></i><span class="url">' + c.url + '</span></div><div class="body"><div class="side">' +
       '<div class="brand"><svg width="22" height="22" viewBox="0 0 240 240"><g fill="none" stroke-width="18" stroke-linecap="square"><g transform="translate(70,168) rotate(-25) scale(.62)" stroke="#5B6779"><polyline points="-27,-30 28,0 -27,30"/></g><g transform="translate(118,128) rotate(-12) scale(.82)" stroke="#9FAABA"><polyline points="-27,-30 28,0 -27,30"/></g><g transform="translate(172,72) rotate(2) scale(1.05)" stroke="#E9EDF3"><polyline points="-27,-30 28,0 -27,30"/></g></g></svg>' + c.app + '</div>' +
-      '<h6>SIGNED IN AS</h6>' + roles + '</div><div class="main">' + c.views + '</div></div></div>' +
-      '<div class="who" id="who"><h6>WHO ACTS</h6>' + steps + '</div>' + (c.extra || '') +
+      '<h6>' + (c.sideTitle || 'SIGNED IN AS') + '</h6>' + roles + '</div><div class="main">' + c.views + '</div></div></div>' +
+      '<div class="who" id="who"><h6>' + (c.whoTitle || 'WHO ACTS') + '</h6>' + steps + '</div>' + (c.extra || '') +
       '<div class="cap" id="cap"></div><div class="cur" id="cur"><span class="rp"></span><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#fff" stroke="#05070B" stroke-width="1.5" stroke-linejoin="round"/></svg></div>';
   }
 

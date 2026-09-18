@@ -199,3 +199,25 @@ tr.new.in{opacity:1;animation:flash 2s}
 .chain .cl{flex:1;height:2px;background:var(--line2);position:relative;overflow:hidden;margin-bottom:26px}
 .chain .cl i{position:absolute;inset:0;width:0;background:var(--good)}
 .embed,.embed body{background:transparent!important}
+/* ===== light theme (shown on the dark site) ===== */
+html.light{--bg:#F4F6FA;--ink:#EEF1F6;--p1:#FFFFFF;--p2:#F7F9FC;--p3:#E6EAF1;--line:rgba(15,23,42,.08);--line2:rgba(15,23,42,.15);
+ --t1:#0B0F18;--t2:#475467;--t3:#8591A5;--amber2:#B45F00;--good:#05875F;--bad:#D92D20}
+html.light body{background:radial-gradient(1200px 700px at 15% 0%,#dfe8ff 0%,transparent 60%),radial-gradient(900px 600px at 100% 100%,#ffe9cc 0%,transparent 60%),var(--bg);color:var(--t1)}
+html.light.embed body{background:transparent!important}
+html.light .vp{background:linear-gradient(160deg,#eaf0ff,#f8f9fc 55%,#fff1df);border-color:rgba(15,23,42,.12);box-shadow:0 40px 100px -40px rgba(30,41,59,.45),inset 0 1px 0 #fff}
+html.light .win{box-shadow:0 30px 70px -30px rgba(30,41,59,.4),0 0 0 1px rgba(15,23,42,.04)}
+html.light .bar i{background:#D5DBE5}
+html.light .side{background:linear-gradient(180deg,#F4F6FA,#fff)}
+html.light .brand svg>g>g:nth-child(1){stroke:#A7B2C2}html.light .brand svg>g>g:nth-child(2){stroke:#5B6779}html.light .brand svg>g>g:nth-child(3){stroke:#0B0F18}
+html.light .chip.sig{color:#2F58D6;border-color:rgba(52,97,224,.4);background:rgba(52,97,224,.08)}
+html.light .chip.amber{background:rgba(232,137,12,.12)}
+html.light .ring circle:first-child{stroke:#E6EAF1}
+html.light .scrim{background:rgba(226,232,240,.55)}
+html.light .modal{box-shadow:0 30px 60px -20px rgba(30,41,59,.35)}
+html.light .role.on{background:rgba(232,137,12,.14)}
+html.light .role b{color:var(--t2)}html.light .role.on b{color:#1c0f00}
+html.light .ctl button{background:#fff}
+html.light .toast{box-shadow:0 20px 40px -24px rgba(30,41,59,.4)}
+html.light .esc[style*="8fb0ff"]{color:#2F58D6!important}
+/* phones stay dark devices in both themes */
+html.light .phone{--p2:#171D2A;--p3:#1E2636;--line2:rgba(255,255,255,.14);--t1:#E9EDF3;--t2:#9AA4B2;--t3:#5B6779;--good:#34D399;color:var(--t1);border-color:#2a3140}
