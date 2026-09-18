@@ -495,3 +495,37 @@ html[data-theme="light"] .hero-art .halo{background:radial-gradient(circle,rgba(
   .nav-inline a.active::after{content:"";position:absolute;left:50%;bottom:3px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--amber-500)}
   .nav-toggle{display:none}
 }
+
+/* ============ service motion graphics ============ */
+.svc-motion{padding:18px;overflow:hidden}
+.svc-svg{display:block;width:100%;height:auto}
+.svc-svg text{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;fill:var(--t3)}
+.svc-svg .m-t1{font-family:var(--f-body);font-size:11.5px;font-weight:600;letter-spacing:0;fill:var(--t1)}
+.svc-svg .m-kpi{font-family:var(--f-display);font-size:17px;letter-spacing:0;fill:var(--t1)}
+.svc-svg .m-cap{font-size:9.5px;letter-spacing:.16em;fill:var(--amber-500)}
+.svc-svg .m-btn-t{font-family:var(--f-body);font-size:11px;font-weight:600;letter-spacing:0;fill:#1c0f00}
+.svc-svg .m-chip-t{font-size:8.5px;fill:var(--t1)}
+.m-surf{fill:var(--ink-800);stroke:var(--line-2)}
+.m-bar{fill:var(--ink-700)}
+.m-dot{fill:var(--line-2)}
+.m-line{fill:var(--line-2)}
+.m-ink{fill:var(--t2)}
+.m-card{fill:var(--ink-700);stroke:var(--line)}
+.m-hot{fill:var(--ink-700);stroke:var(--amber-500);stroke-width:1.5;filter:drop-shadow(0 8px 16px rgba(0,0,0,.35))}
+.m-sig{fill:var(--signal-500)}
+.m-amb{fill:var(--amber-500)}
+.m-good{fill:#34D399}
+.m-btn{fill:var(--amber-500)}
+.m-toast{fill:var(--ink-700);stroke:var(--line-2)}
+.m-phone{fill:var(--ink-800);stroke:var(--line-2);stroke-width:3}
+.m-cur{fill:#fff;stroke:#05070B;stroke-width:1.2}
+.m-ring{fill:none;stroke:var(--amber-500);stroke-width:2}
+.m-chip{fill:var(--line-2)}.m-chip-a{fill:rgba(76,125,255,.45)}.m-chip-g{fill:rgba(52,211,153,.45)}
+.m-link{stroke:var(--line-2);stroke-width:1.5}
+.m-pulse{fill:var(--amber-500);filter:drop-shadow(0 0 4px var(--amber-500))}
+.m-node{fill:var(--ink-700);stroke:var(--amber-500);stroke-width:1.5}
+.m-hub{fill:var(--ink-700);stroke:var(--line-2);filter:drop-shadow(0 10px 20px rgba(0,0,0,.35))}
+.m-mk1{stroke:#5B6779}.m-mk2{stroke:#9FAABA}.m-mk3{stroke:var(--amber-500)}
+.m-up{fill:#34D399}
+.m-bar-s{fill:var(--signal-500)}.m-bar-a{fill:var(--amber-500)}
+.m-lc{fill:none;stroke:var(--amber-500);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100}
