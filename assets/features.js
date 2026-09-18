@@ -8,6 +8,45 @@
   var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
+
+  /* ---------- smooth scroll ---------- */
+  if (window.Lenis && fine && !reduce) {
+    var lenis = new window.Lenis({ lerp: 0.1, wheelMultiplier: 1, anchors: { offset: -90 } });
+    (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
+    window.solviqoLenis = lenis;
+  }
+
+  /* ---------- pinned story: chapter follows scroll ---------- */
+  var story = doc.getElementById('story');
+  if (story) {
+    var track = story.querySelector('.story-track'), chs = story.querySelectorAll('.story-ch li'), prog = story.querySelector('.story-prog');
+    var cur = -1;
+    function onStory() {
+      var r = track.getBoundingClientRect(), total = r.height - innerHeight;
+      var p = Math.min(1, Math.max(0, -r.top / total));
+      prog.style.setProperty('--p', p);
+      var c = Math.min(3, Math.floor(p * 4));
+      if (c !== cur) { cur = c; story.setAttribute('data-c', c); chs.forEach(function (li, i) { li.classList.toggle('on', i === c); }); }
+    }
+    addEventListener('scroll', onStory, { passive: true }); addEventListener('resize', onStory); onStory();
+  }
+
+  /* ---------- about: week by week ---------- */
+  var weeks = doc.querySelector('.weeks');
+  if (weeks && 'IntersectionObserver' in window) {
+    var wl = weeks.querySelectorAll('.wk-list li');
+    var wio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var w = e.target.getAttribute('data-w');
+        weeks.setAttribute('data-w', w);
+        wl.forEach(function (li) { li.classList.toggle('on', li === e.target); });
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    wl.forEach(function (li) { wio.observe(li); });
+    weeks.setAttribute('data-w', '0'); wl[0].classList.add('on');
+  }
+
   /* ---------- 2. hero that follows the cursor ---------- */
   var art = doc.getElementById('heroArt');
   if (art && !reduce) {
@@ -211,7 +250,7 @@
   var loaded = false;
   function loadMore() {
     if (loaded) return; loaded = true;
-    Promise.all([fetch('data/case-studies.json?v=4').then(function (r) { return r.json(); }), fetch('data/posts.json?v=3').then(function (r) { return r.json(); })])
+    Promise.all([fetch('data/case-studies.json?v=4').then(function (r) { return r.json(); }), fetch('data/posts.json?v=4').then(function (r) { return r.json(); })])
       .then(function (d) {
         d[0].forEach(function (c) { ITEMS.push(['Case study', c.title, 'case-studies.html?slug=' + c.slug, c.industry + ' ' + (c.tags || []).join(' ') + ' ' + c.slug.replace(/-/g, ' ')]); });
         d[1].forEach(function (p) { ITEMS.push(['Article', p.title, 'blog.html?slug=' + p.slug]); });
@@ -221,7 +260,7 @@
   var pal = doc.createElement('div'); pal.className = 'cmdk'; pal.setAttribute('role', 'dialog'); pal.setAttribute('aria-label', 'Search the site');
   pal.innerHTML = '<div class="cmdk-box"><div class="cmdk-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
     '<input id="cmdkQ" type="text" placeholder="Search pages, services, case studies..." autocomplete="off" spellcheck="false"><kbd>esc</kbd></div>' +
-    '<div class="cmdk-list" id="cmdkL" role="listbox"></div><div class="cmdk-foot"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> move</span><span><kbd>enter</kbd> open</span></div></div>';
+    '<div class="cmdk-list" id="cmdkL" role="listbox" data-lenis-prevent></div><div class="cmdk-foot"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> move</span><span><kbd>enter</kbd> open</span></div></div>';
   doc.body.appendChild(pal);
   var q = doc.getElementById('cmdkQ'), L = doc.getElementById('cmdkL'), sel = 0, res = [];
   function render() {
@@ -234,8 +273,8 @@
       return g + '<a class="cmdk-it' + (i === sel ? ' on' : '') + '" data-i="' + i + '" href="' + esc(it[2]) + '"><span>' + esc(it[1]) + '</span><em>&crarr;</em></a>';
     }).join('') : '<div class="cmdk-empty">Nothing found. Try "portal" or "fleet".</div>';
   }
-  function open() { loadMore(); pal.classList.add('open'); q.value = ''; sel = 0; render(); setTimeout(function () { q.focus(); }, 30); }
-  function close() { pal.classList.remove('open'); }
+  function open() { if (window.solviqoLenis) window.solviqoLenis.stop(); loadMore(); pal.classList.add('open'); q.value = ''; sel = 0; render(); setTimeout(function () { q.focus(); }, 30); }
+  function close() { pal.classList.remove('open'); if (window.solviqoLenis) window.solviqoLenis.start(); }
   function go(i) {
     var it = res[i]; if (!it) return;
     if (it[2] === '#theme') { close(); var tb = doc.getElementById('themeBtn'); if (tb) tb.click(); return; }
