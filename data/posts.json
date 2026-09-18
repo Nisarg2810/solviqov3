@@ -1,5 +1,104 @@
 [
   {
+    "slug": "scoping-a-sprint",
+    "title": "A field guide to scoping a two week app sprint",
+    "category": "How we work",
+    "date": "2026-09-12",
+    "readTime": "7 min read",
+    "excerpt": "The fastest way to blow a two week timeline is to scope three workflows and call it one. Here is exactly how we narrow a request down to something that actually ships on time.",
+    "body": [
+      {
+        "type": "p",
+        "text": "Almost every project that comes to us starts the same way: we need an app for tracking X. By the end of a twenty minute call, X has usually split into three or four different things wearing one name."
+      },
+      {
+        "type": "h3",
+        "text": "The tell that a scope is too big"
+      },
+      {
+        "type": "p",
+        "text": "If a workflow needs more than one type of user with meaningfully different permissions, more than one approval stage, and more than one system it has to talk to, it is not one sprint. It is two, and trying to force it into one is how a two week estimate becomes an eight week apology."
+      },
+      {
+        "type": "h3",
+        "text": "What we actually ask on the call"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Who logs the first entry, and what do they see on day one?",
+          "Who approves it, and what happens if they reject it?",
+          "Where does the data need to end up: a dashboard, an export, or another system entirely?",
+          "What is the one thing that, if it did not work on day one, would make this a failure?"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "That last question does more work than the other three combined. It forces a client to name the actual point of the app, instead of the wish list around it."
+      },
+      {
+        "type": "h3",
+        "text": "What gets cut, and why that is good news"
+      },
+      {
+        "type": "p",
+        "text": "Almost every scoping call ends with something removed, not added: the export nobody actually opens monthly, the second approval tier that exists on paper but never triggers in practice, the dashboard view that was requested before anyone had data to put in it. Cutting these is not a downgrade. It is the difference between a tool your team opens every day and a feature nobody remembers to use."
+      },
+      {
+        "type": "p",
+        "text": "A sprint that ships in two weeks is not a smaller version of what you asked for. It is the sharpest version of what you actually need, with everything that was not load bearing removed before the first line of code."
+      }
+    ],
+    "art": 0
+  },
+  {
+    "slug": "whatsapp-approvals-risk",
+    "title": "Approvals over WhatsApp: the compliance risk nobody has written down",
+    "category": "Compliance",
+    "date": "2026-09-05",
+    "readTime": "5 min read",
+    "excerpt": "If your approval trail lives in a chat thread, you do not have an approval process. You have a conversation that happened to end well, so far.",
+    "body": [
+      {
+        "type": "p",
+        "text": "Ask most operations teams how a request gets approved and the honest answer, after enough follow up questions, is a WhatsApp thread or an email chain. Someone asks, someone with authority replies with a thumbs up or a one line yes, and everyone moves on."
+      },
+      {
+        "type": "h3",
+        "text": "Why this works right up until it does not"
+      },
+      {
+        "type": "p",
+        "text": "It works because the people involved trust each other and the decisions are usually correct. It stops working the moment anyone needs to answer a very specific question: who approved this, exactly when, under what version of the request, and what did they actually see before they said yes."
+      },
+      {
+        "type": "h3",
+        "text": "Where this becomes expensive"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A disputed invoice, where the only evidence of sign off is a message that has since been deleted or a phone that has since been replaced.",
+          "A safety incident, where an auditor wants a documented approval chain and finds a text message instead.",
+          "A vendor payment approved by someone who was, on paper, not authorized to approve it, and nobody can say who actually gave the go ahead."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "None of this means the team is careless. It means the approval process was never built as a process. It grew, informally, out of whatever tool was fastest to open."
+      },
+      {
+        "type": "h3",
+        "text": "What an approvals app actually buys you"
+      },
+      {
+        "type": "p",
+        "text": "Not more bureaucracy. The opposite: a request moves through the same number of steps it does today, but each step is logged, timestamped and tied to a specific person's login instead of a phone number. When an auditor or a dispute asks the question, the answer already exists, instead of needing to be reconstructed from memory and screenshots."
+      }
+    ],
+    "art": 2
+  },
+  {
     "slug": "oracle-fusion-backlog",
     "title": "Why your Oracle Fusion backlog is six months long",
     "category": "Process",
@@ -59,106 +158,6 @@
     "art": 0
   },
   {
-    "slug": "hsse-spreadsheet-cost",
-    "title": "The real cost of tracking HSSE observations in a spreadsheet",
-    "category": "HSSE",
-    "date": "2026-07-28",
-    "readTime": "5 min read",
-    "excerpt": "A spreadsheet does not fail loudly. It fails quietly, one overwritten row and one missed follow-up at a time, until an audit finds the gap for you.",
-    "body": [
-      {
-        "type": "p",
-        "text": "Ask an HSSE manager how observations get logged and most describe the same system: a shared Excel file, one column per site, one row per incident, updated by whoever got to the laptop first that week."
-      },
-      {
-        "type": "h3",
-        "text": "Where it actually breaks"
-      },
-      {
-        "type": "list",
-        "items": [
-          "Two people editing the same file at once, and one set of entries quietly overwriting the other.",
-          "A site supervisor logging an observation on a phone, in a text message, meaning to add it to the sheet later.",
-          "No enforced closure. A hazard gets logged as open and nobody owns turning it into closed.",
-          "No trend visibility. Nobody can say, in a five minute glance, whether near misses are rising on a specific site."
-        ]
-      },
-      {
-        "type": "h3",
-        "text": "Why this stays hidden until it does not"
-      },
-      {
-        "type": "p",
-        "text": "None of this shows up as a problem in a normal month. It shows up the day an auditor asks for a closure trail on a specific incident from four months ago, and the only record is a cell that somebody overwrote in March."
-      },
-      {
-        "type": "h3",
-        "text": "What replaces it"
-      },
-      {
-        "type": "p",
-        "text": "An HSSE observation tracker does three things a spreadsheet cannot: it enforces who can log, edit and close an observation, it timestamps every change instead of quietly overwriting the last one, and it gives a site or regional manager a live view instead of a monthly export. Built as a real app, wired into the same Oracle Fusion or ERP instance your compliance team already reports out of, it becomes the system of record instead of a side file nobody trusts."
-      },
-      {
-        "type": "p",
-        "text": "None of this requires ripping out anything you already run. It requires one workflow, built once, used every day."
-      }
-    ],
-    "art": 2
-  },
-  {
-    "slug": "scoping-a-sprint",
-    "title": "A field guide to scoping a two week app sprint",
-    "category": "How we work",
-    "date": "2026-08-11",
-    "readTime": "7 min read",
-    "excerpt": "The fastest way to blow a two week timeline is to scope three workflows and call it one. Here is exactly how we narrow a request down to something that actually ships on time.",
-    "body": [
-      {
-        "type": "p",
-        "text": "Almost every project that comes to us starts the same way: we need an app for tracking X. By the end of a twenty minute call, X has usually split into three or four different things wearing one name."
-      },
-      {
-        "type": "h3",
-        "text": "The tell that a scope is too big"
-      },
-      {
-        "type": "p",
-        "text": "If a workflow needs more than one type of user with meaningfully different permissions, more than one approval stage, and more than one system it has to talk to, it is not one sprint. It is two, and trying to force it into one is how a two week estimate becomes an eight week apology."
-      },
-      {
-        "type": "h3",
-        "text": "What we actually ask on the call"
-      },
-      {
-        "type": "list",
-        "items": [
-          "Who logs the first entry, and what do they see on day one?",
-          "Who approves it, and what happens if they reject it?",
-          "Where does the data need to end up: a dashboard, an export, or another system entirely?",
-          "What is the one thing that, if it did not work on day one, would make this a failure?"
-        ]
-      },
-      {
-        "type": "p",
-        "text": "That last question does more work than the other three combined. It forces a client to name the actual point of the app, instead of the wish list around it."
-      },
-      {
-        "type": "h3",
-        "text": "What gets cut, and why that is good news"
-      },
-      {
-        "type": "p",
-        "text": "Almost every scoping call ends with something removed, not added: the export nobody actually opens monthly, the second approval tier that exists on paper but never triggers in practice, the dashboard view that was requested before anyone had data to put in it. Cutting these is not a downgrade. It is the difference between a tool your team opens every day and a feature nobody remembers to use."
-      },
-      {
-        "type": "p",
-        "text": "A sprint that ships in two weeks is not a smaller version of what you asked for. It is the sharpest version of what you actually need, with everything that was not load bearing removed before the first line of code."
-      }
-    ],
-    "art": 0
-  },
-  {
     "slug": "fleet-inspections-paper-cost",
     "title": "Fleet inspections on paper: what it is actually costing you",
     "category": "Fleet",
@@ -202,48 +201,49 @@
     "art": 1
   },
   {
-    "slug": "whatsapp-approvals-risk",
-    "title": "Approvals over WhatsApp: the compliance risk nobody has written down",
-    "category": "Compliance",
-    "date": "2026-09-05",
+    "slug": "hsse-spreadsheet-cost",
+    "title": "The real cost of tracking HSSE observations in a spreadsheet",
+    "category": "HSSE",
+    "date": "2026-07-28",
     "readTime": "5 min read",
-    "excerpt": "If your approval trail lives in a chat thread, you do not have an approval process. You have a conversation that happened to end well, so far.",
+    "excerpt": "A spreadsheet does not fail loudly. It fails quietly, one overwritten row and one missed follow-up at a time, until an audit finds the gap for you.",
     "body": [
       {
         "type": "p",
-        "text": "Ask most operations teams how a request gets approved and the honest answer, after enough follow up questions, is a WhatsApp thread or an email chain. Someone asks, someone with authority replies with a thumbs up or a one line yes, and everyone moves on."
+        "text": "Ask an HSSE manager how observations get logged and most describe the same system: a shared Excel file, one column per site, one row per incident, updated by whoever got to the laptop first that week."
       },
       {
         "type": "h3",
-        "text": "Why this works right up until it does not"
-      },
-      {
-        "type": "p",
-        "text": "It works because the people involved trust each other and the decisions are usually correct. It stops working the moment anyone needs to answer a very specific question: who approved this, exactly when, under what version of the request, and what did they actually see before they said yes."
-      },
-      {
-        "type": "h3",
-        "text": "Where this becomes expensive"
+        "text": "Where it actually breaks"
       },
       {
         "type": "list",
         "items": [
-          "A disputed invoice, where the only evidence of sign off is a message that has since been deleted or a phone that has since been replaced.",
-          "A safety incident, where an auditor wants a documented approval chain and finds a text message instead.",
-          "A vendor payment approved by someone who was, on paper, not authorized to approve it, and nobody can say who actually gave the go ahead."
+          "Two people editing the same file at once, and one set of entries quietly overwriting the other.",
+          "A site supervisor logging an observation on a phone, in a text message, meaning to add it to the sheet later.",
+          "No enforced closure. A hazard gets logged as open and nobody owns turning it into closed.",
+          "No trend visibility. Nobody can say, in a five minute glance, whether near misses are rising on a specific site."
         ]
       },
       {
+        "type": "h3",
+        "text": "Why this stays hidden until it does not"
+      },
+      {
         "type": "p",
-        "text": "None of this means the team is careless. It means the approval process was never built as a process. It grew, informally, out of whatever tool was fastest to open."
+        "text": "None of this shows up as a problem in a normal month. It shows up the day an auditor asks for a closure trail on a specific incident from four months ago, and the only record is a cell that somebody overwrote in March."
       },
       {
         "type": "h3",
-        "text": "What an approvals app actually buys you"
+        "text": "What replaces it"
       },
       {
         "type": "p",
-        "text": "Not more bureaucracy. The opposite: a request moves through the same number of steps it does today, but each step is logged, timestamped and tied to a specific person's login instead of a phone number. When an auditor or a dispute asks the question, the answer already exists, instead of needing to be reconstructed from memory and screenshots."
+        "text": "An HSSE observation tracker does three things a spreadsheet cannot: it enforces who can log, edit and close an observation, it timestamps every change instead of quietly overwriting the last one, and it gives a site or regional manager a live view instead of a monthly export. Built as a real app, wired into the same Oracle Fusion or ERP instance your compliance team already reports out of, it becomes the system of record instead of a side file nobody trusts."
+      },
+      {
+        "type": "p",
+        "text": "None of this requires ripping out anything you already run. It requires one workflow, built once, used every day."
       }
     ],
     "art": 2
