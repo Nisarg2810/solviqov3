@@ -320,7 +320,7 @@
   function initBlog() {
     var list = doc.getElementById('postList'), detail = doc.getElementById('postDetail');
     if (!list && !detail) return;
-    fetch('data/posts.json').then(function (r) { return r.json(); }).then(function (posts) {
+    fetch('data/posts.json?v=2').then(function (r) { return r.json(); }).then(function (posts) {
       posts.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
       var slug = slugParam();
       if (slug) {
@@ -355,7 +355,7 @@
   function initCases() {
     var list = doc.getElementById('caseList'), detail = doc.getElementById('caseDetail');
     if (!list && !detail) return;
-    fetch('data/case-studies.json').then(function (r) { return r.json(); }).then(function (cases) {
+    fetch('data/case-studies.json?v=2').then(function (r) { return r.json(); }).then(function (cases) {
       var slug = slugParam();
       if (slug) {
         hideListChrome();
@@ -391,11 +391,11 @@
 
   function initHomeTeasers() {
     var pt = doc.getElementById('homePosts'), ct = doc.getElementById('homeCases');
-    if (pt) fetch('data/posts.json').then(function (r) { return r.json(); }).then(function (p) {
+    if (pt) fetch('data/posts.json?v=2').then(function (r) { return r.json(); }).then(function (p) {
       p.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
       pt.innerHTML = p.slice(0, 2).map(postCard).join(''); pt.classList.add('in'); paintCovers(pt); armTilt(pt);
     }).catch(function () {});
-    if (ct) fetch('data/case-studies.json').then(function (r) { return r.json(); }).then(function (c) {
+    if (ct) fetch('data/case-studies.json?v=2').then(function (r) { return r.json(); }).then(function (c) {
       ct.innerHTML = c.slice(0, 2).map(caseCard).join(''); ct.classList.add('in'); paintCovers(ct); armTilt(ct);
     }).catch(function () {});
   }
