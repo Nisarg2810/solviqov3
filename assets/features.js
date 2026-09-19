@@ -9,24 +9,23 @@
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
 
-  /* ---------- smooth scroll ---------- */
-  if (window.Lenis && fine && !reduce) {
-    var lenis = new window.Lenis({ lerp: 0.1, wheelMultiplier: 1, anchors: { offset: -90 } });
-    (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
-    window.solviqoLenis = lenis;
-  }
-
   /* ---------- pinned story: chapter follows scroll ---------- */
   var story = doc.getElementById('story');
   if (story) {
     var track = story.querySelector('.story-track'), chs = story.querySelectorAll('.story-ch li'), prog = story.querySelector('.story-prog');
-    var cur = -1;
+    var cur = -1, CALL = ['A request is being typed in', 'Approved in one tap on the phone', 'Tasks tick off as work gets done', 'Live numbers, no report needed'];
     function onStory() {
       var r = track.getBoundingClientRect(), total = r.height - innerHeight;
       var p = Math.min(1, Math.max(0, -r.top / total));
       prog.style.setProperty('--p', p);
       var c = Math.min(3, Math.floor(p * 4));
-      if (c !== cur) { cur = c; story.setAttribute('data-c', c); chs.forEach(function (li, i) { li.classList.toggle('on', i === c); }); }
+      if (c !== cur) {
+        cur = c; story.setAttribute('data-c', c);
+        chs.forEach(function (li, i) { li.classList.toggle('on', i === c); });
+        var n = story.querySelector('.sg-n'); if (n) n.textContent = '0' + (c + 1);
+        var co = story.querySelector('.sg-call'); if (co) { co.classList.remove('in'); void co.offsetWidth; co.textContent = CALL[c]; co.classList.add('in'); }
+      }
+      story.classList.toggle('done', p > .97);
     }
     addEventListener('scroll', onStory, { passive: true }); addEventListener('resize', onStory); onStory();
   }
@@ -260,7 +259,7 @@
   var pal = doc.createElement('div'); pal.className = 'cmdk'; pal.setAttribute('role', 'dialog'); pal.setAttribute('aria-label', 'Search the site');
   pal.innerHTML = '<div class="cmdk-box"><div class="cmdk-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
     '<input id="cmdkQ" type="text" placeholder="Search pages, services, case studies..." autocomplete="off" spellcheck="false"><kbd>esc</kbd></div>' +
-    '<div class="cmdk-list" id="cmdkL" role="listbox" data-lenis-prevent></div><div class="cmdk-foot"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> move</span><span><kbd>enter</kbd> open</span></div></div>';
+    '<div class="cmdk-list" id="cmdkL" role="listbox"></div><div class="cmdk-foot"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> move</span><span><kbd>enter</kbd> open</span></div></div>';
   doc.body.appendChild(pal);
   var q = doc.getElementById('cmdkQ'), L = doc.getElementById('cmdkL'), sel = 0, res = [];
   function render() {
@@ -273,8 +272,8 @@
       return g + '<a class="cmdk-it' + (i === sel ? ' on' : '') + '" data-i="' + i + '" href="' + esc(it[2]) + '"><span>' + esc(it[1]) + '</span><em>&crarr;</em></a>';
     }).join('') : '<div class="cmdk-empty">Nothing found. Try "portal" or "fleet".</div>';
   }
-  function open() { if (window.solviqoLenis) window.solviqoLenis.stop(); loadMore(); pal.classList.add('open'); q.value = ''; sel = 0; render(); setTimeout(function () { q.focus(); }, 30); }
-  function close() { pal.classList.remove('open'); if (window.solviqoLenis) window.solviqoLenis.start(); }
+  function open() { loadMore(); pal.classList.add('open'); q.value = ''; sel = 0; render(); setTimeout(function () { q.focus(); }, 30); }
+  function close() { pal.classList.remove('open'); }
   function go(i) {
     var it = res[i]; if (!it) return;
     if (it[2] === '#theme') { close(); var tb = doc.getElementById('themeBtn'); if (tb) tb.click(); return; }
