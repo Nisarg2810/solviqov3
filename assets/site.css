@@ -1528,3 +1528,23 @@ mark{background:linear-gradient(transparent 60%,rgba(232,137,12,.42) 60%,rgba(23
 @media(max-width:1100px){.ot-hide-sm{display:none}}
 @media(max-width:700px){.ot{max-width:84px}.ot-doodle,.ot .ot-sign b{font-size:18px}}
 @media(prefers-reduced-motion:reduce){.ot,.ot *{animation:none!important}}
+
+/* footer link hover */
+.foot-col a,.foot-brand a,.nav-foot a{position:relative;display:inline-block;transition:color .25s var(--ease),transform .25s var(--ease)}
+.foot-col a::after{content:"";position:absolute;left:0;bottom:-3px;width:100%;height:1.5px;background:var(--amber-500);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.foot-col a:hover{color:var(--amber-400);transform:translateX(3px)}
+.foot-col a:hover::after{transform:scaleX(1)}
+.foot-col a:focus-visible{color:var(--amber-400);outline:2px solid var(--amber-500);outline-offset:3px;border-radius:3px}
+/* dressed Oti */
+.ot-rig,.pk-rig{width:100%}
+.ot-rig svg,.pk-rig svg,[data-oti] svg{display:block;width:100%;height:auto;overflow:visible}
+.ot.flip .oti-svg,.peek.flip .oti-svg{transform:scaleX(-1)}
+.oti-svg .oti-eye{transform-box:fill-box;transform-origin:center;animation:moBlink 4.6s infinite}
+.oti-svg .oti-zz{animation:otZz 2.4s ease-in-out infinite}
+.oti-wardrobe{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.ow{padding:14px 10px 16px;border-radius:var(--r-md);border:1px solid var(--line-2);text-align:center;
+  background:radial-gradient(70% 60% at 50% 40%,rgba(232,137,12,.14),transparent 70%),var(--ink-850);transition:transform .3s var(--spring),border-color .3s}
+.ow:hover{transform:translateY(-4px) rotate(-1deg);border-color:var(--amber-500)}
+.ow [data-oti]{width:140px;margin:0 auto;animation:pkBob 3.6s ease-in-out infinite}
+.ow:nth-child(2n) [data-oti]{animation-delay:-1.2s}.ow:nth-child(3n) [data-oti]{animation-delay:-2.1s}
+.ow b{display:block;font-size:15px;margin-top:8px}.ow small{font-size:12.5px;color:var(--t3)}

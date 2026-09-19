@@ -299,10 +299,11 @@
       '</span></a>';
   }
   var OTI = document.documentElement.getAttribute('data-mascot') !== 'off';
+  var OTI_LOOK = { popcorn: 'movie', clipboard: 'manager', heart: 'fan', phone: 'caller' };
   function oti(variant, prop, style, sign, flip) {
     if (!OTI) return '';
-    return '<div class="ot ot-' + variant + '" style="' + style + '" aria-hidden="true"><img class="ot-o" src="assets/oti/otter-3d' + (flip ? '-flip' : '') + '.png" alt="">' +
-      (prop ? '<img class="ot-p" src="assets/oti/prop-' + prop + '.png" alt="">' : '') + (sign ? '<span class="ot-sign"><b>' + sign + '</b></span>' : '') + '</div>';
+    return '<div class="ot ot-' + variant + (flip ? ' flip' : '') + '" style="' + style + '" aria-hidden="true"><div class="ot-rig" data-oti="' + (OTI_LOOK[prop] || 'classic') + '"></div>' +
+      (sign ? '<span class="ot-sign"><b>' + sign + '</b></span>' : '') + '</div>';
   }
   function demoTheme() { return document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; }
   window.solviqoDemoTheme = demoTheme;
@@ -369,6 +370,7 @@
         detail.hidden = false;
         if (!p) { detail.innerHTML = '<a class="back-link" href="blog.html">&larr; All articles</a><p>That article moved or never existed.</p>'; return; }
         var rel = posts.filter(function (x) { return x.slug !== p.slug; }).slice(0, 2);
+        setTimeout(function () { if (window.otiFill) window.otiFill(detail); }, 0);
         detail.innerHTML =
           '<a class="back-link" href="blog.html">&larr; All articles</a>' +
           '<div class="cover-wide"><canvas data-seed="' + esc(p.title) + '" data-ratio="21/9"' + (p.art !== undefined ? ' data-kind="' + esc(p.art) + '"' : '') + '></canvas></div>' +
@@ -402,6 +404,7 @@
         if (!detail) return;
         detail.hidden = false;
         if (!c) { detail.innerHTML = '<a class="back-link" href="case-studies.html">&larr; All case studies</a><p>That engagement moved or never existed.</p>'; return; }
+        setTimeout(function () { if (window.otiFill) window.otiFill(detail); }, 0);
         detail.innerHTML =
           '<a class="back-link" href="case-studies.html">&larr; All case studies</a>' +
           '<div class="cover-wide"><canvas data-seed="' + esc(c.title) + '" data-ratio="21/9"' + (c.art !== undefined ? ' data-kind="' + esc(c.art) + '"' : '') + '></canvas></div>' +

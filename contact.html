@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@600;700&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=26">
+<link rel="stylesheet" href="assets/site.css?v=27">
 <script>(function(){try{var t=localStorage.getItem('solviqo-theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <script>try{if(!sessionStorage.getItem('sv-seen')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('is-loading');}catch(e){}</script>
 </head>
@@ -85,13 +85,13 @@
         <h1 class="chrome-text rev" style="font-size:clamp(34px,4.4vw,60px);margin-top:22px">Tell us what you want to build.</h1>
         <p class="lede rev">Twenty minutes is usually enough to know if this is a fit. Watch the one minute intro, then pick the call that matches where you are.</p>
       </div>
-      <div class="rev has-ot" style="position:relative"><div id="vsl" class="vsl"></div><div class="ot ot-sign " style="right:-30px;top:-96px;width:120px" aria-hidden="true"><img class="ot-o" src="assets/oti/otter-3d-flip.png" alt=""><img class="ot-p" src="assets/oti/prop-phone.png" alt=""><span class="ot-sign"><b>Book me!</b></span></div></div>
+      <div class="rev has-ot" style="position:relative"><div id="vsl" class="vsl"></div><div class="ot ot-sign  flip" style="right:-30px;top:-96px;width:120px" aria-hidden="true"><div class="ot-rig" data-oti="caller"></div><span class="ot-sign"><b>Book me!</b></span></div></div>
     </div>
   </section>
 
   <section class="sec" style="padding-top:40px">
     <div class="wrap">
-      <div class="grid3 stag has-ot"><div class="ot ot-hang " style="left:calc(50% - 50px);top:-66px;width:100px" aria-hidden="true"><img class="ot-o" src="assets/oti/otter-3d.png" alt=""><img class="ot-p" src="assets/oti/prop-calendar.png" alt=""></div>
+      <div class="grid3 stag has-ot"><div class="ot ot-hang " style="left:calc(50% - 50px);top:-66px;width:100px" aria-hidden="true"><div class="ot-rig" data-oti="planner"></div></div>
         <div class="card" data-tilt="7">
           <div style="display:flex;justify-content:space-between;align-items:center"><span class="badge amber">Discovery call</span><span style="font-family:var(--f-mono);font-size:12px;color:var(--t3)">20 min</span></div>
           <h3>Not sure where to start</h3>
@@ -132,7 +132,7 @@
         <span class="kick"><b>03</b> Or just write to us</span>
         <h3 style="font-size:22px;margin-top:16px">studio@solviqo.com</h3>
         <p style="color:var(--t2);margin-top:12px;font-size:15px">Tell us what you want to build or fix and roughly who will use it. That is usually enough for a useful first reply.</p>
-        <form class="form has-ot" id="leadForm" novalidate style="margin-top:26px;position:relative"><div class="ot ot-peek " style="right:-40px;top:-150px;width:104px" aria-hidden="true"><img class="ot-o" src="assets/oti/otter-3d-flip.png" alt=""><img class="ot-p" src="assets/oti/prop-envelope.png" alt=""></div>
+        <form class="form has-ot" id="leadForm" novalidate style="margin-top:26px;position:relative"><div class="ot ot-peek  flip" style="right:-40px;top:-150px;width:104px" aria-hidden="true"><div class="ot-rig" data-oti="postie"></div></div>
           <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
           <div class="field"><label for="f-msg">What do you want to build?</label><textarea id="f-msg" name="message" rows="4" required></textarea></div>
@@ -178,8 +178,10 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=15"></script>
+<script src="assets/site.js?v=16"></script>
 <script src="assets/features.js?v=8"></script>
+<script src="assets/home-oti.js?v=1"></script>
+<script src="assets/oti-rig.js?v=1"></script>
 <script src="assets/vsl.js?v=1"></script>
 </body>
 </html>
