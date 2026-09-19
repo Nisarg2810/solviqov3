@@ -1307,3 +1307,45 @@ html[data-theme="light"] .oti-card.is-line .oti-img img{filter:none}
 .cb.oti img{width:26px;height:26px;border-radius:50%;flex:none}
 .oti-credit{margin-top:22px;font-size:12.5px;color:var(--t3)}
 .oti-img img{width:140px;height:140px;object-fit:contain}
+
+/* ============ Oti across the site ============ */
+.ld-oti{position:relative;width:110px;display:flex;flex-direction:column;align-items:center}
+.ld-oti img{width:96px;height:96px;animation:otiFloat 2.2s ease-in-out infinite;filter:drop-shadow(0 10px 12px rgba(0,0,0,.35));position:relative;z-index:1}
+.ld-oti svg{width:120px;height:18px;margin-top:-16px}
+.ld-oti path{fill:rgba(76,125,255,.45);animation:otiWave 2.2s ease-in-out infinite}
+.oti-help{position:fixed;right:20px;bottom:20px;z-index:72;display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  transform:translateY(30px) scale(.9);opacity:0;visibility:hidden;transition:transform .6s var(--spring),opacity .4s,visibility 0s .4s}
+.oti-help.show{transform:none;opacity:1;visibility:visible;transition:transform .6s var(--spring),opacity .4s}
+.oh-btn{position:relative;width:74px;height:74px;border-radius:50%;border:1px solid var(--line-2);cursor:pointer;padding:0;
+  background:radial-gradient(circle at 50% 40%,#ffd9a3,#E8890C 70%);box-shadow:0 14px 30px -10px rgba(232,137,12,.7),var(--e2);display:grid;place-items:center;transition:transform .3s var(--spring)}
+.oh-btn:hover{transform:scale(1.08) rotate(-4deg)}
+.oh-btn img{width:62px;height:62px;animation:otiFloat 3.4s ease-in-out infinite}
+.oh-btn i{position:absolute;top:4px;right:4px;width:14px;height:14px;border-radius:50%;background:#34D399;border:2px solid var(--ink-950)}
+.oti-help.seen .oh-btn i{display:none}
+.oti-help.wave .oh-btn img{animation:otiWaveHi .5s ease-in-out 6 alternate}
+@keyframes otiWaveHi{from{transform:rotate(-12deg)}to{transform:rotate(12deg) translateY(-4px)}}
+.oh-panel{width:250px;padding:16px;border-radius:18px 18px 4px 18px;background:var(--ink-850);border:1px solid var(--line-2);box-shadow:var(--e4);
+  display:flex;flex-direction:column;gap:6px;transform-origin:bottom right;transform:scale(.8) translateY(10px);opacity:0;pointer-events:none;transition:all .35s var(--spring)}
+.oti-help.open .oh-panel{transform:none;opacity:1;pointer-events:auto}
+.oh-say{font-size:14.5px;color:var(--t1);line-height:1.45;margin-bottom:6px}
+.oh-panel a{font-size:13.5px;color:var(--t2);padding:9px 12px;border-radius:10px;border:1px solid var(--line-2);transition:all .2s}
+.oh-panel a:hover{color:var(--t1);border-color:var(--amber-500);background:rgba(232,137,12,.08)}
+@media(max-width:620px){.oti-help{right:12px;bottom:12px}.oh-btn{width:60px;height:60px}.oh-btn img{width:50px;height:50px}.oh-panel{width:230px}}
+.est-oti{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;background:rgba(232,137,12,.08);border:1px solid rgba(232,137,12,.35);margin:0 0 18px}
+.est-oti img{width:52px;height:52px;flex:none}
+.est-oti span{font-size:15px;color:var(--t1);font-weight:500}
+.est-oti.pop img{animation:otiWaveHi .3s ease-in-out 2 alternate}
+.site-footer{position:relative}
+.foot-oti{position:absolute;right:max(40px,calc((100vw - var(--maxw)) / 2 + 40px));top:-58px;display:flex;align-items:center;gap:10px;z-index:3}
+.foot-oti img{width:84px;height:84px;animation:otiFloat 3.6s ease-in-out infinite;filter:drop-shadow(0 10px 10px rgba(0,0,0,.35))}
+.foot-oti span{font-size:13px;color:var(--t2);padding:8px 12px;border-radius:12px 12px 12px 4px;background:var(--ink-850);border:1px solid var(--line-2);order:-1;opacity:0;transition:opacity .4s}
+.foot-oti:hover span{opacity:1}
+@media(max-width:620px){.foot-oti{right:16px;top:-46px}.foot-oti img{width:64px;height:64px}}
+.about-oti{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center}
+.about-oti img{width:200px;height:200px}
+@media(max-width:700px){.about-oti{grid-template-columns:1fr;text-align:center}.about-oti img{margin:0 auto;width:150px;height:150px}}
+.nf{max-width:760px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.nf img{width:220px;height:220px;margin-bottom:10px}
+.cmdk-empty img{display:block;margin:0 auto 10px;animation:otiFloat 3s ease-in-out infinite}
+.form-ok img{display:block;margin-bottom:8px}
+.foot-oti{right:auto;left:50%;transform:translateX(-50%)}@media(max-width:620px){.foot-oti{right:auto;left:50%}}

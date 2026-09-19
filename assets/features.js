@@ -111,6 +111,7 @@
         '<span class="kick"><b></b> Your estimate</span>' +
         '<div class="est-num"><span id="eLo">0</span><em>to</em><span id="eHi">0</span><small>weeks</small></div>' +
         '<div class="est-tl" id="eTl"></div>' +
+        '<div class="est-oti" id="eOti"><img src="assets/oti/otter-3d.png" alt="" width="52" height="52"><span></span></div>' +
         '<ul class="ticks" id="eInc"></ul>' +
         '<a class="btn btn-primary" id="eCta" href="contact.html" style="margin-top:26px;width:100%">Book a call with this estimate<span class="shine"></span></a>' +
         '<p class="est-note">A rough guide, not a quote. We fix the price after a short scoping call.</p>' +
@@ -136,6 +137,8 @@
       ADDS.forEach(function (a) { if (st.add[a[0]]) inc.push(a[1]); });
       inc.push('Documentation and handover');
       doc.getElementById('eInc').innerHTML = inc.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+      var say = hi <= 3 ? 'Quick one! A small, focused build.' : hi <= 6 ? 'Nice. That is a solid first release.' : hi <= 9 ? 'A proper build. Worth every week.' : 'Big plans! We would ship it in stages.';
+      var ot = doc.getElementById('eOti'); if (ot) { ot.querySelector('span').textContent = say; ot.classList.remove('pop'); void ot.offsetWidth; ot.classList.add('pop'); }
     }
     est.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
@@ -190,10 +193,43 @@
     showNow(); var nTimer = setInterval(showNow, 5500);
     var small = matchMedia('(max-width:620px)').matches;
     function reveal() { nb.classList.add('show'); }
-    if (small) { var onS = function () { if (scrollY > innerHeight * .7) { reveal(); removeEventListener('scroll', onS); } }; addEventListener('scroll', onS, { passive: true }); }
-    else setTimeout(reveal, html.classList.contains('is-loading') ? 1900 : 900);
+    var onS = function () { if (scrollY > innerHeight * (small ? .7 : .55)) { reveal(); removeEventListener('scroll', onS); } };
+    addEventListener('scroll', onS, { passive: true }); onS();
     nb.querySelector('.nw-x').onclick = function () { nb.classList.remove('show'); clearInterval(nTimer); try { sessionStorage.setItem('sv-now-x', '1'); } catch (x) {} };
   }
+
+
+  /* ---------- Oti, the helper ---------- */
+  (function () {
+    var page = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+    var HI = {
+      index: 'Hi, I am Oti! Want a rough timeline for your idea?',
+      services: 'Try the estimator below. It takes ten seconds.',
+      'case-studies': 'Every one of these went live in four weeks or less.',
+      about: 'Nice to meet you. I keep things calm around here.',
+      blog: 'Grab a coffee. These are short, I promise.',
+      contact: 'Pick a time that suits you. I will let Nisarg know.',
+      kiki: 'Hey, that is my cousin Kiki.', oti: 'That is me! Hello!'
+    };
+    var w = doc.createElement('div'); w.className = 'oti-help';
+    w.innerHTML = '<div class="oh-panel" role="dialog" aria-label="Oti can help">' +
+      '<p class="oh-say"></p>' +
+      '<a href="services.html#estimate">Estimate my build</a><a href="case-studies.html">See work we shipped</a><a href="contact.html">Book a 20 minute call</a>' +
+      '</div><button type="button" class="oh-btn" aria-label="Ask Oti"><img src="assets/oti/otter-3d.png" alt="" width="64" height="64"><i></i></button>';
+    doc.body.appendChild(w);
+    var say = w.querySelector('.oh-say'), btn = w.querySelector('.oh-btn');
+    say.textContent = HI[page] || HI.index;
+    function open(v) { w.classList.toggle('open', v); }
+    btn.addEventListener('click', function () { open(!w.classList.contains('open')); w.classList.add('seen'); });
+    doc.addEventListener('click', function (e) { if (!w.contains(e.target)) open(false); });
+    var greeted = false; try { greeted = sessionStorage.getItem('sv-oti') === '1'; } catch (x) {}
+    setTimeout(function () { w.classList.add('show'); }, html.classList.contains('is-loading') ? 1700 : 600);
+    if (!greeted) setTimeout(function () {
+      w.classList.add('wave'); open(true);
+      try { sessionStorage.setItem('sv-oti', '1'); } catch (x) {}
+      setTimeout(function () { if (!w.matches(':hover')) open(false); w.classList.remove('wave'); }, 6500);
+    }, 4200);
+  })();
 
   /* ---------- 6. case cards play their demo on hover ---------- */
   if (fine) {
@@ -270,7 +306,7 @@
     L.innerHTML = res.length ? res.map(function (it, i) {
       var g = it[0] !== last ? '<div class="cmdk-g">' + esc(it[0]) + '</div>' : ''; last = it[0];
       return g + '<a class="cmdk-it' + (i === sel ? ' on' : '') + '" data-i="' + i + '" href="' + esc(it[2]) + '"><span>' + esc(it[1]) + '</span><em>&crarr;</em></a>';
-    }).join('') : '<div class="cmdk-empty">Nothing found. Try "portal" or "fleet".</div>';
+    }).join('') : '<div class="cmdk-empty"><img src="assets/oti/otter-3d.png" alt="" width="56" height="56">Oti looked everywhere. Try "portal", "fleet" or "pricing".</div>';
   }
   function open() { loadMore(); pal.classList.add('open'); q.value = ''; sel = 0; render(); setTimeout(function () { q.focus(); }, 30); }
   function close() { pal.classList.remove('open'); }
