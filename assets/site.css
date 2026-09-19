@@ -1499,3 +1499,32 @@ mark{background:linear-gradient(transparent 60%,rgba(232,137,12,.42) 60%,rgba(23
 .pk-bl2{width:122px;left:-56px;bottom:-60px}
 .pk-bl2 .pp-rocket{left:auto;right:-30px;top:-22px}
 @media(max-width:600px){.pk-l{left:-18px;width:96px}.pk-bl2{left:-12px;width:96px}}
+
+/* ============ Oti variants (staging) ============ */
+.has-ot{position:relative;overflow:visible!important}
+.ot{position:absolute;z-index:5;pointer-events:none}
+.ot-o{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35))}
+.ot-p{position:absolute;width:44%;right:-14%;top:-6%;filter:drop-shadow(0 6px 8px rgba(0,0,0,.3));animation:pkTilt 2.6s ease-in-out infinite}
+.ot-o[src*="flip"]~.ot-p{right:auto;left:-14%}
+.ot-peek{animation:pkBob 3.4s ease-in-out infinite}
+.ot-float{animation:otiFloat 4s ease-in-out infinite}
+.ot-wave .ot-o{transform-origin:50% 85%;animation:otiWaveHi .6s ease-in-out infinite alternate}
+.ot-hang{transform-origin:50% -40px;animation:otHang 3.2s ease-in-out infinite}
+.ot-hang::before{content:"";position:absolute;left:50%;top:-44px;width:2px;height:50px;background:linear-gradient(#a07850,#c9a27a);border-radius:2px}
+.ot-hang .ot-o{transform:rotate(180deg)}
+.ot-hang .ot-p{top:auto;bottom:-22%;left:28%;right:auto;width:44%}
+@keyframes otHang{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+.ot-sleep{animation:otiFloat 5.5s ease-in-out infinite}
+.ot-sleep .ot-o{filter:drop-shadow(0 10px 14px rgba(0,0,0,.35)) saturate(.9)}
+.ot-sleep .ot-p{top:-34%;right:-6%;width:40%;animation:otZz 2.4s ease-in-out infinite}
+@keyframes otZz{0%{opacity:0;transform:translate(0,6px) scale(.8)}40%{opacity:1}100%{opacity:0;transform:translate(10px,-14px) scale(1.05)}}
+.ot-sign .ot-sign,.ot .ot-sign{position:absolute;left:50%;bottom:16%;transform:translateX(-50%) rotate(-5deg);z-index:2}
+.ot-sign b,.nf-sign b{display:block;font:700 24px/1 'Caveat',cursive;color:#3b2a1d;white-space:nowrap;padding:8px 14px 6px;border-radius:9px;
+  background:#fff6e4;border:2px solid #d9b58a;box-shadow:0 8px 16px -6px rgba(0,0,0,.45)}
+.ot-sign b::after{content:"";position:absolute;left:50%;top:100%;width:5px;height:26px;margin-left:-2.5px;background:#a07850;border-radius:0 0 3px 3px;z-index:-1}
+.ot-sign{animation:pkBob 3.6s ease-in-out infinite}
+.ot-doodle{position:absolute;left:-40%;bottom:-30px;font:700 22px 'Caveat',cursive;color:var(--amber-400);white-space:nowrap;transform:rotate(-6deg)}
+.nf-sign{display:inline-block;transform:rotate(-5deg);margin:-26px 0 10px;position:relative;z-index:2}
+@media(max-width:1100px){.ot-hide-sm{display:none}}
+@media(max-width:700px){.ot{max-width:84px}.ot-doodle,.ot .ot-sign b{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.ot,.ot *{animation:none!important}}

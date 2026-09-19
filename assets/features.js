@@ -6,6 +6,7 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = matchMedia('(pointer:fine)').matches;
   var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+  var MASCOT = html.getAttribute('data-mascot') !== 'off';
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
 
@@ -111,7 +112,7 @@
         '<span class="kick"><b></b> Your estimate</span>' +
         '<div class="est-num"><span id="eLo">0</span><em>to</em><span id="eHi">0</span><small>weeks</small></div>' +
         '<div class="est-tl" id="eTl"></div>' +
-        '<div class="est-oti" id="eOti"><img src="assets/oti/otter-3d.png" alt="" width="52" height="52"><span></span></div>' +
+        (MASCOT ? '<div class="est-oti" id="eOti"><img src="assets/oti/otter-3d.png" alt="" width="52" height="52"><span></span></div>' : '') +
         '<ul class="ticks" id="eInc"></ul>' +
         '<a class="btn btn-primary" id="eCta" href="contact.html" style="margin-top:26px;width:100%">Book a call with this estimate<span class="shine"></span></a>' +
         '<p class="est-note">A rough guide, not a quote. We fix the price after a short scoping call.</p>' +
@@ -201,6 +202,7 @@
 
   /* ---------- Oti, the helper ---------- */
   (function () {
+    if (!MASCOT) return;
     var page = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
     var HI = {
       index: 'Hi, I am Oti! Want a rough timeline for your idea?',
@@ -306,7 +308,7 @@
     L.innerHTML = res.length ? res.map(function (it, i) {
       var g = it[0] !== last ? '<div class="cmdk-g">' + esc(it[0]) + '</div>' : ''; last = it[0];
       return g + '<a class="cmdk-it' + (i === sel ? ' on' : '') + '" data-i="' + i + '" href="' + esc(it[2]) + '"><span>' + esc(it[1]) + '</span><em>&crarr;</em></a>';
-    }).join('') : '<div class="cmdk-empty"><img src="assets/oti/otter-3d.png" alt="" width="56" height="56">Oti looked everywhere. Try "portal", "fleet" or "pricing".</div>';
+    }).join('') : '<div class="cmdk-empty">' + (MASCOT ? '<img src="assets/oti/otter-3d.png" alt="" width="56" height="56">Oti looked everywhere.' : 'Nothing found.') + ' Try "portal", "fleet" or "pricing".</div>';
   }
   function open() { loadMore(); pal.classList.add('open'); q.value = ''; sel = 0; render(); setTimeout(function () { q.focus(); }, 30); }
   function close() { pal.classList.remove('open'); }

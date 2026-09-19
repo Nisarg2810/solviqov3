@@ -298,11 +298,17 @@
         '<span class="card-link">Read the piece ' + ARROW + '</span>' +
       '</span></a>';
   }
+  var OTI = document.documentElement.getAttribute('data-mascot') !== 'off';
+  function oti(variant, prop, style, sign, flip) {
+    if (!OTI) return '';
+    return '<div class="ot ot-' + variant + '" style="' + style + '" aria-hidden="true"><img class="ot-o" src="assets/oti/otter-3d' + (flip ? '-flip' : '') + '.png" alt="">' +
+      (prop ? '<img class="ot-p" src="assets/oti/prop-' + prop + '.png" alt="">' : '') + (sign ? '<span class="ot-sign"><b>' + sign + '</b></span>' : '') + '</div>';
+  }
   function demoTheme() { return document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; }
   window.solviqoDemoTheme = demoTheme;
   function demoHtml(c) {
     if (!c.demo) return '';
-    return '<div class="demo-wrap"><div class="flow-head"><h3>Watch it work</h3><span class="flow-legend">A one minute walkthrough of the real flow, with sample data</span></div>' +
+    return '<div class="demo-wrap has-ot">' + oti('peek', 'popcorn', 'right:-34px;top:-70px;width:108px', null, true) + '<div class="flow-head"><h3>Watch it work</h3><span class="flow-legend">A one minute walkthrough of the real flow, with sample data</span></div>' +
       '<iframe class="demo-frame" src="' + esc(c.demo) + '?v=3&theme=' + demoTheme() + '" title="Walkthrough of ' + esc(c.title) + '" loading="lazy"></iframe></div>';
   }
   document.querySelectorAll('iframe.demo-frame[data-src]').forEach(function (f) { f.src = f.getAttribute('data-src') + '&theme=' + demoTheme(); });
@@ -323,7 +329,7 @@
     var ba = (c.before && c.after) ? '<div class="ba">' +
       '<div class="panel before"><h4>Before</h4><ul>' + c.before.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
       '<div class="panel after"><h4>After</h4><ul>' + c.after.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>' : '';
-    return '<div class="panel flow-wrap"><div class="flow-head"><h3>How the work moves now</h3>' +
+    return '<div class="panel flow-wrap has-ot">' + oti('peek', 'clipboard', 'left:-40px;bottom:-46px;width:100px') + '<div class="flow-head"><h3>How the work moves now</h3>' +
       '<div class="flow-legend"><span><i style="background:var(--ink-600)"></i>Team step</span>' +
       '<span><i style="background:var(--signal-500)"></i>Automatic</span>' +
       '<span><i style="background:var(--amber-500)"></i>Decision point</span></div></div>' +
@@ -370,7 +376,7 @@
           '<h1 class="chrome-text">' + esc(p.title) + '</h1>' +
           '<p class="post-byline">' + fmtDate(p.date) + ' &middot; ' + esc(p.readTime) + ' &middot; by Solviqo Studio</p></div>' +
           '<div class="post-body">' + p.body.map(block).join('') + '</div>' +
-          '<div class="panel pad post-cta"><h3>Have this exact problem?</h3>' +
+          '<div class="panel pad post-cta has-ot">' + oti('sign', 'heart', 'right:-20px;top:-86px;width:110px', 'Thanks for reading!', true) + '<h3>Have this exact problem?</h3>' +
           '<p style="color:var(--t2);margin-top:10px">Twenty minutes on a call is enough to know if a sprint fixes it.</p>' +
           '<a class="btn btn-primary" style="margin-top:18px" href="contact.html">Book a scoping call<span class="shine"></span></a></div>' +
           (rel.length ? '<div class="related"><div class="kick"><b></b> More from the studio</div><div class="grid2 stag in" style="margin-top:22px">' + rel.map(postCard).join('') + '</div></div>' : '');
@@ -409,7 +415,7 @@
           '<div class="post-body"><h3>The problem</h3><p>' + esc(c.challenge) + '</p>' +
           '<h3>What we built</h3><p>' + esc(c.approach) + '</p>' +
           '<h3>Where it landed</h3><p>' + esc(c.outcome) + '</p></div>' +
-          '<div class="panel pad post-cta"><h3>Running the same operation?</h3>' +
+          '<div class="panel pad post-cta has-ot">' + oti('wave', 'phone', 'right:-20px;top:-76px;width:108px', null, true) + '<h3>Running the same operation?</h3>' +
           '<p style="color:var(--t2);margin-top:10px">Tell us what it actually looks like and we will tell you, honestly, if a sprint fixes it.</p>' +
           '<a class="btn btn-primary" style="margin-top:18px" href="contact.html">Book a scoping call<span class="shine"></span></a></div>';
       } else {
