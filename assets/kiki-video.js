@@ -200,7 +200,7 @@
       if (!muted && synth) {
         var u = new SpeechSynthesisUtterance(S.say);
         if (voice) { u.voice = voice; u.lang = voice.lang; }
-        u.rate = .98; u.pitch = 1.18;
+        u.rate = 1.12; u.pitch = 2;
         u.onboundary = function (e) { if (my !== runId) return; if (!got) { got = true; clearInterval(wordT); } var w = charToWord(e.charIndex); hl(w); speakWord(words[w], Math.min(420, 70 * words[w].length)); };
         u.onend = said; u.onerror = function () { if (my === runId) { muted = true; ui(); timerWords(330); } };
         synth.cancel(); synth.speak(u);
